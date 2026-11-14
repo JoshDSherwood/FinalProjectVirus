@@ -1,7 +1,7 @@
 public class Main {
 
     public static void main(String[] args) {
-        Grid outbreakGrid = new Grid(10, 10);
+        Grid outbreakGrid = new Grid(50, 50);
         outbreakGrid.infectPerson(5, 5);
 
         for (int step = 1; step <= 10; step++) {
