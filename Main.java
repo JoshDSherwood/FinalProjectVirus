@@ -1,3 +1,6 @@
+/**
+ * Console driver class to test model rules independently without a GUI window.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -12,7 +15,6 @@ public class Main {
     }
 
     public static void printBoard(Grid grid) {
-        // Uses getArray() and stores it in 'array'
         Person[][] array = grid.getArray();
 
         for (int r = 0; r < array.length; r++) {
