@@ -1,8 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 /**
- * Custom JPanel that draws the grid visually on the screen with 5 status colors.
+ * Custom JPanel that draws the grid visually and supports clicking cells to set starting conditions.
  */
 public class SimulationPanel extends JPanel {
     private Grid grid;
@@ -10,6 +12,21 @@ public class SimulationPanel extends JPanel {
     public SimulationPanel(Grid grid) {
         this.grid = grid;
         setBackground(Color.WHITE);
+
+        // Allow clicking cells to set starting conditions before running
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                int cellWidth = getWidth() / grid.cols;
+                int cellHeight = getHeight() / grid.rows;
+
+                int c = e.getX() / cellWidth;
+                int r = e.getY() / cellHeight;
+
+                grid.infectPerson(r, c);
+                repaint();
+            }
+        });
     }
 
     @Override
@@ -28,7 +45,6 @@ public class SimulationPanel extends JPanel {
                 int x = c * cellWidth;
                 int y = r * cellHeight;
 
-                // Pick color based on person's status (5 distinct colors)
                 String status = array[r][c].getStatus();
                 if (status.equals("INFECTED")) {
                     g.setColor(Color.RED);
@@ -39,10 +55,9 @@ public class SimulationPanel extends JPanel {
                 } else if (status.equals("QUARANTINED")) {
                     g.setColor(Color.ORANGE);
                 } else {
-                    g.setColor(Color.LIGHT_GRAY); // Default for HEALTHY
+                    g.setColor(Color.LIGHT_GRAY);
                 }
 
-                // Fill the cell and draw a border around it
                 g.fillRect(x, y, cellWidth - 1, cellHeight - 1);
             }
         }
