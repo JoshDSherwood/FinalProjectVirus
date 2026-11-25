@@ -1,6 +1,9 @@
+/**
+ * Represents an individual person on the grid with a health/infection status.
+ */
 public class Person {
     private String status;
-    private int infectionTurns = 0; // Tracks how many turns they have been infected
+    private int infectionTurns = 0;
 
     public Person(String status) {
         this.status = status;
